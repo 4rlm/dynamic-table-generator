@@ -15,7 +15,17 @@ dynamicTableHead.setAttribute('id', 'dynamic-table-head');
 var dynamicTableBody = document.createElement('tbody');
 dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 
+let parsedata = [];
 var cars = [];
+
+////////////////////////////////////////
+// Next step: display parsedata on table.
+function displayCsvToTable() {
+  console.table(parsedata);
+}
+////////////////////////////////////////
+
+
 
 function createCar(type, model, color, year) {
   const car = {type:type, model:model, color:color, year: year};
@@ -83,20 +93,20 @@ function uploadDealcsv () {};
     /*------- Method for parse csv data and display --------------*/
     uploadDealcsv.prototype.getParsecsvdata = function(data) {
 
-        let parsedata = [];
-
         let newLinebrk = data.split("\n");
         for(let i = 0; i < newLinebrk.length; i++) {
 
             parsedata.push(newLinebrk[i].split(","))
         }
 
-        console.table(parsedata);
+        // console.table(parsedata);
+        displayCsvToTable();
     }
 
 
+
   
-  var parseCsv = new uploadDealcsv();
+  parseCsv = new uploadDealcsv();
   parseCsv.getCsv();
 
 
