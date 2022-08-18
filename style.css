@@ -1,8 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 html {
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
+  margin: 5px;
   min-height: 100vh;
+  font-family: Comfortaa, sans-serif;
+
+}
+
+header {
+  text-align: center;
+  height: 100px;
+}
+
+#upload-display {
+  padding: 10px;
+  text-align: center;
+}
+
+#dynamic-table {
+  width: 100%;
+  box-shadow: 5px 5px 5px 5px gray;
+}
+
+#dynamic-table, 
+#dynamic-table th, 
+#dynamic-table td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+#dynamic-table-head {
+  text-transform: capitalize;
+  background-color: dodgerblue;
+  color: whitesmoke;
+}
+
+#dynamic-table tr:nth-child(even) {
+  background-color: rgb(87, 168, 248);
+  color: whitesmoke;
+}
+
+#dynamic-table tr:hover {
+  background-color: rgb(87, 168, 248);
+  color: whitesmoke;
 }

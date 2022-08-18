@@ -1,5 +1,19 @@
-var carTableHead = document.getElementById('car-table-head');
-var carTableBody = document.getElementById('car-table-body');
+// Important: First, create <div id="dynamic-table-display"></div> on HTML page to dynamically display table and data.
+
+// Get html element to append dynamic table to.
+var dynamicTableDisplay = document.getElementById('dynamic-table-display');
+
+// Create table with id='dynamic-table'
+var dynamicTable = document.createElement('table');
+dynamicTable.setAttribute('id', 'dynamic-table');
+
+// Create thead with id='dynamic-table-head'
+var dynamicTableHead = document.createElement('thead');
+dynamicTableHead.setAttribute('id', 'dynamic-table-head');
+
+// Create tbody with id='dynamic-table-body'
+var dynamicTableBody = document.createElement('tbody');
+dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 
 var cars = [];
 
@@ -22,10 +36,10 @@ function loopCars() {
     headRow.appendChild(headTh);
   }
   
-  carTableHead.appendChild(headRow);
+  dynamicTableHead.appendChild(headRow);
 
   for (const object of cars) {
-    var bodyRow = carTableBody.insertRow(0);
+    var bodyRow = dynamicTableBody.insertRow(0);
 
     for (const key in object) {
       var cell = bodyRow.insertCell();
@@ -34,7 +48,15 @@ function loopCars() {
   }
 }
 
+dynamicTable.appendChild(dynamicTableHead);
+dynamicTable.appendChild(dynamicTableBody);
+dynamicTableDisplay.appendChild(dynamicTable);
+
 loopCars();
+
+////////////////////////////////////////////
+
+
 
 
 
