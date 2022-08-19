@@ -15,53 +15,39 @@ dynamicTableHead.setAttribute('id', 'dynamic-table-head');
 var dynamicTableBody = document.createElement('tbody');
 dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 
+let dataToDisplay = [];
 let parsedData = [];
-var cars = [];
+var fruits = [
+  ['type', 'color', 'size', 'sweetness'],
+  ['banana', 'yellow', 'medium', 'medium'],
+  ['tomato', 'red', 'small', 'low'],
+  ['watermelon', 'red', 'large', 'high'],
+];
 
-function createCar(type, model, color, year) {
-  const car = {type:type, model:model, color:color, year: year};
-  cars.push(car);
+window.onload = setValueOfDataToDisplay();
+
+function setValueOfDataToDisplay() {
+  clearTable();
+
+  if (parsedData.length) {
+    dataToDisplay = parsedData;
+  }else{
+    dataToDisplay = fruits;
+  };
+  displayDataToTable();
 }
 
-createCar("Ford", "Escape", "black", 2010);
-createCar("Toyota", "Prius", "silver", 2014);
-createCar("Hyundai", "Sonata", "white", 2020);
-
-function loopCars() {
-  var headRow = document.createElement('tr');
-  var headings = Object.keys(cars[0]);
-
-  for (const item of headings) {
-    var headTh = document.createElement('th');
-    headTh.textContent = item;
-    headRow.appendChild(headTh);
-  }
-  
-  dynamicTableHead.appendChild(headRow);
-
-  for (const object of cars) {
-    var bodyRow = dynamicTableBody.insertRow(0);
-
-    for (const key in object) {
-      var cell = bodyRow.insertCell();
-      cell.innerHTML = object[key];
-    }
-  }
+function appendToDynamicTableDisplay() {
+  dynamicTable.appendChild(dynamicTableHead);
+  dynamicTable.appendChild(dynamicTableBody);
+  dynamicTableDisplay.appendChild(dynamicTable);
 }
 
-dynamicTable.appendChild(dynamicTableHead);
-dynamicTable.appendChild(dynamicTableBody);
-dynamicTableDisplay.appendChild(dynamicTable);
-
-window.onload = loopCars();
-
-////////////////////////////////////////
-// Next step: display parsedData on table.
-function displayCsvToTable() {
-  clearTable()
+function displayDataToTable() {
   var headRow = document.createElement('tr');
-  var headings = parsedData[0];
+  var headings = dataToDisplay[0];
 
+  // Append TH to THead from First Row of CSV/Array
   for (const item of headings) {
     var headTh = document.createElement('th');
     headTh.textContent = item;
@@ -69,30 +55,33 @@ function displayCsvToTable() {
   }
   dynamicTableHead.appendChild(headRow);
 
-  for (const array of parsedData) {
+  // Append TD to TBody from 2nd Row of CSV/Array
+  for (const array of dataToDisplay.slice(1)) {
     var bodyRow = dynamicTableBody.insertRow(0);
-
     for (const item of array) {
       var cell = bodyRow.insertCell();
       cell.innerHTML = item;
     }
   }
-
-  dynamicTable.appendChild(dynamicTableHead);
-  dynamicTable.appendChild(dynamicTableBody);
-  dynamicTableDisplay.appendChild(dynamicTable);
-
-  console.log(headings);
+  appendToDynamicTableDisplay()
 }
 
 function clearTable() {
-  // const list = document.getElementById("dynamic-table");
-  while (dynamicTableDisplay.hasChildNodes()) {
-    dynamicTableDisplay.removeChild(dynamicTableDisplay.firstChild);
-  }
-}
-////////////////////////////////////////
+  dynamicTableHead.textContent = '';
+  dynamicTableBody.textContent = '';
+  dynamicTableDisplay.textContent = '';
 
+  // while (dynamicTableDisplay.hasChildNodes()) {
+  //   dynamicTableDisplay.removeChild(dynamicTable);
+  //   // dynamicTableDisplay.removeChild(dynamicTableDisplay.firstChild);
+  // }
+
+  // while (dynamicTableDisplay.firstChild) {
+  //   dynamicTableDisplay.removeChild(dynamicTableDisplay.lastChild);
+  // }
+}
+
+////////////////////////////////////////
 
 // CSV Upload Button Calls getCsv()
 document.getElementById('fileSelect').onclick = function(){
@@ -115,13 +104,22 @@ function getCsv() {
   });
 }
 
+function fetchLocalFile() {
+  const response = fetch('cars.csv')
+   .then(response => response.text())
+   .then(v => Papa.parse(v))
+   .catch(err => console.log(err))
+  response.then(v => console.log(v))
+}
+
 // Parses CSV Data, then Sends to parsedData Array
 function getParsecsvdata(csvdata) {
+    parsedData = [];
     let newLinebrk = csvdata.split("\n");
     for(let i = 0; i < newLinebrk.length; i++) {
         parsedData.push(newLinebrk[i].split(","))
     }
-    displayCsvToTable();
+    setValueOfDataToDisplay();
 }
 
 
