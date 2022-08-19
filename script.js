@@ -18,15 +18,6 @@ dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 let parsedData = [];
 var cars = [];
 
-////////////////////////////////////////
-// Next step: display parsedData on table.
-function displayCsvToTable() {
-  console.table(parsedData);
-}
-////////////////////////////////////////
-
-
-
 function createCar(type, model, color, year) {
   const car = {type:type, model:model, color:color, year: year};
   cars.push(car);
@@ -37,8 +28,8 @@ createCar("Toyota", "Prius", "silver", 2014);
 createCar("Hyundai", "Sonata", "white", 2020);
 
 function loopCars() {
-  headRow = document.createElement('tr');
-  headings = Object.keys(cars[0]);
+  var headRow = document.createElement('tr');
+  var headings = Object.keys(cars[0]);
 
   for (const item of headings) {
     var headTh = document.createElement('th');
@@ -62,7 +53,46 @@ dynamicTable.appendChild(dynamicTableHead);
 dynamicTable.appendChild(dynamicTableBody);
 dynamicTableDisplay.appendChild(dynamicTable);
 
-loopCars();
+window.onload = loopCars();
+
+////////////////////////////////////////
+// Next step: display parsedData on table.
+function displayCsvToTable() {
+  clearTable()
+  var headRow = document.createElement('tr');
+  var headings = parsedData[0];
+
+  for (const item of headings) {
+    var headTh = document.createElement('th');
+    headTh.textContent = item;
+    headRow.appendChild(headTh);
+  }
+  dynamicTableHead.appendChild(headRow);
+
+  for (const array of parsedData) {
+    var bodyRow = dynamicTableBody.insertRow(0);
+
+    for (const item of array) {
+      var cell = bodyRow.insertCell();
+      cell.innerHTML = item;
+    }
+  }
+
+  dynamicTable.appendChild(dynamicTableHead);
+  dynamicTable.appendChild(dynamicTableBody);
+  dynamicTableDisplay.appendChild(dynamicTable);
+
+  console.log(headings);
+}
+
+function clearTable() {
+  // const list = document.getElementById("dynamic-table");
+  while (dynamicTableDisplay.hasChildNodes()) {
+    dynamicTableDisplay.removeChild(dynamicTableDisplay.firstChild);
+  }
+}
+////////////////////////////////////////
+
 
 // CSV Upload Button Calls getCsv()
 document.getElementById('fileSelect').onclick = function(){
