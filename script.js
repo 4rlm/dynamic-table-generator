@@ -15,13 +15,13 @@ dynamicTableHead.setAttribute('id', 'dynamic-table-head');
 var dynamicTableBody = document.createElement('tbody');
 dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 
-let parsedata = [];
+let parsedData = [];
 var cars = [];
 
 ////////////////////////////////////////
-// Next step: display parsedata on table.
+// Next step: display parsedData on table.
 function displayCsvToTable() {
-  console.table(parsedata);
+  console.table(parsedData);
 }
 ////////////////////////////////////////
 
@@ -64,50 +64,38 @@ dynamicTableDisplay.appendChild(dynamicTable);
 
 loopCars();
 
-////////////////////////////////////////////
+// CSV Upload Button Calls getCsv()
+document.getElementById('fileSelect').onclick = function(){
+  getCsv();
+}
 
-function uploadDealcsv () {}; 
-
-  /*------ Method for read uploded csv file ------*/
-  uploadDealcsv.prototype.getCsv = function(e) {
-       
-      let input = document.getElementById('fileSelect');
-      input.addEventListener('change', function() {
-
-        if (this.files && this.files[0]) {
-
-            var myFile = this.files[0];
-            var reader = new FileReader();
-            
-            reader.addEventListener('load', function (e) {
-                
-                let csvdata = e.target.result; 
-                parseCsv.getParsecsvdata(csvdata); // calling function for parse csv data 
-            });
-            
-            reader.readAsBinaryString(myFile);
-        }
-      });
+// Get CSV Data, Then Send to getParsecsvdata(csvdata)
+function getCsv() {
+  let fileElement = document.getElementById('fileSelect');
+  fileElement.addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+        var myFile = this.files[0];
+        var reader = new FileReader();
+        reader.addEventListener('load', function (e) {
+            let csvdata = e.target.result; 
+            getParsecsvdata(csvdata); // calling function for parse csv data 
+        });
+        reader.readAsBinaryString(myFile);
     }
+  });
+}
 
-    /*------- Method for parse csv data and display --------------*/
-    uploadDealcsv.prototype.getParsecsvdata = function(data) {
-
-        let newLinebrk = data.split("\n");
-        for(let i = 0; i < newLinebrk.length; i++) {
-
-            parsedata.push(newLinebrk[i].split(","))
-        }
-
-        // console.table(parsedata);
-        displayCsvToTable();
+// Parses CSV Data, then Sends to parsedData Array
+function getParsecsvdata(csvdata) {
+    let newLinebrk = csvdata.split("\n");
+    for(let i = 0; i < newLinebrk.length; i++) {
+        parsedData.push(newLinebrk[i].split(","))
     }
+    displayCsvToTable();
+}
 
 
 
-  
-  parseCsv = new uploadDealcsv();
-  parseCsv.getCsv();
 
 
 
