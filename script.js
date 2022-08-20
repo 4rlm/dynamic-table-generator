@@ -47,6 +47,7 @@ csv2Btn.textContent = 'People CSV';
 csv3Btn.textContent = 'Sales CSV';
 
 let dataToDisplay = [];
+var remoteCSVpath = "csv/cars.csv";
 
 // Helper Method to Create Element and Set Attribute
 function createAndSetEl(docId, setId) {
@@ -132,8 +133,8 @@ function getParsecsvdata(csvdata) {
 }
 
 // Fetches Remote CSV to Use as Default Display
-function getDefaultCSV(func) {
-  var file = "csv/cars.csv";
+function fetchRemoteCSV(func) {
+  var file = remoteCSVpath;
   var rawFile = new XMLHttpRequest();
   var allText;
   rawFile.open("GET", file, false);
@@ -149,6 +150,22 @@ function getDefaultCSV(func) {
   getParsecsvdata(rawFile.responseText);
 }
 
-// Calls getDefaultCSV on Load
-window.onload = getDefaultCSV();
+// Calls fetchRemoteCSV on Load
+window.onload = fetchRemoteCSV();
+
+csv1Btn.onclick = function() {
+  remoteCSVpath = "csv/cars.csv"
+  fetchRemoteCSV();
+};
+
+csv2Btn.onclick = function() {
+  remoteCSVpath = "csv/people.csv"
+  fetchRemoteCSV();
+};
+
+csv3Btn.onclick = function() {
+  remoteCSVpath = "csv/sales.csv"
+  fetchRemoteCSV();
+};
+
 
