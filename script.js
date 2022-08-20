@@ -50,7 +50,6 @@ body.appendChild(footer);
 headerH1.textContent = 'Dynamic Table Generator';
 uploadDisplayLabel.textContent = 'Choose CSV to Upload & Display';
 headerP.textContent = 'Upload .CSV file to display data and table dynamically.';
-footerP.textContent = 'Testing';
 
 csv1Btn.textContent = 'Cars CSV';
 csv2Btn.textContent = 'People CSV';
