@@ -1,21 +1,16 @@
 // Important: First, create <div id="dynamic-table-display"></div> on HTML page to dynamically display table and data.
-
-// Get html element to append dynamic table to.
 var dynamicTableDisplay = document.getElementById('dynamic-table-display');
-
-// Create table with id='dynamic-table'
-var dynamicTable = document.createElement('table');
-dynamicTable.setAttribute('id', 'dynamic-table');
-
-// Create thead with id='dynamic-table-head'
-var dynamicTableHead = document.createElement('thead');
-dynamicTableHead.setAttribute('id', 'dynamic-table-head');
-
-// Create tbody with id='dynamic-table-body'
-var dynamicTableBody = document.createElement('tbody');
-dynamicTableBody.setAttribute('id', 'dynamic-table-body');
-
+var dynamicTable = createElHelper('table', 'dynamic-table');
+var dynamicTableHead = createElHelper('thead', 'dynamic-table-head');
+var dynamicTableBody = createElHelper('tbody', 'dynamic-table-body');
 let dataToDisplay = [];
+
+// Helper Method to Create Element and Set Attribute
+function createElHelper(docId, setId) {
+  var newElement = document.createElement(docId);
+  newElement.setAttribute('id', setId);
+  return newElement;
+}
 
 // Appends Elements to Each Other and Top Parent dynamicTableDisplay
 function appendToDynamicTableDisplay() {
