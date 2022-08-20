@@ -1,12 +1,55 @@
 // Important: First, create <div id="dynamic-table-display"></div> on HTML page to dynamically display table and data.
 var dynamicTableDisplay = document.getElementById('dynamic-table-display');
-var dynamicTable = createElHelper('table', 'dynamic-table');
-var dynamicTableHead = createElHelper('thead', 'dynamic-table-head');
-var dynamicTableBody = createElHelper('tbody', 'dynamic-table-body');
+var dynamicTable = createAndSetEl('table', 'dynamic-table');
+var dynamicTableHead = createAndSetEl('thead', 'dynamic-table-head');
+var dynamicTableBody = createAndSetEl('tbody', 'dynamic-table-body');
 let dataToDisplay = [];
 
+var body = document.body;
+var header = document.createElement('header');
+
+var headerH1 = document.createElement('h1');
+headerH1.setAttribute('id', 'heading');
+
+var headerP = document.createElement('p');
+
+var uploadDisplay = document.createElement('div');
+uploadDisplay.setAttribute('id', 'upload-display');
+
+var uploadDisplayLabel = document.createElement('label');
+uploadDisplayLabel.setAttribute('for', 'fileSelect');
+
+var uploadDisplayButton = document.createElement('input');
+uploadDisplayButton.setAttribute('id', 'fileSelect');
+
+uploadDisplayButton.setAttribute('type', 'file');
+uploadDisplayButton.setAttribute('accept', '.csv');
+
+var dynamicTableDisplay = document.createElement('div');
+dynamicTableDisplay.setAttribute('id', 'dynamic-table-display');
+
+
+var footer = document.createElement('footer');
+var footerP = document.createElement('p')
+
+
+header.appendChild(headerH1);
+header.appendChild(headerP);
+body.appendChild(header);
+uploadDisplay.appendChild(uploadDisplayLabel);
+uploadDisplay.appendChild(uploadDisplayButton);
+body.appendChild(uploadDisplay);
+body.appendChild(dynamicTableDisplay);
+footer.appendChild(footerP);
+body.appendChild(footer);
+
+headerH1.textContent = 'Dynamic Table Generator';
+uploadDisplayLabel.textContent = 'Choose CSV to Upload & Display';
+headerP.textContent = 'Upload .CSV file to display data and table dynamically.';
+footerP.textContent = 'Testing';
+
 // Helper Method to Create Element and Set Attribute
-function createElHelper(docId, setId) {
+function createAndSetEl(docId, setId) {
   var newElement = document.createElement(docId);
   newElement.setAttribute('id', setId);
   return newElement;
