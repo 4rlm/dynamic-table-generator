@@ -109,7 +109,6 @@ function getDefaultCSV(func) {
   };
   rawFile.send();
   getParsecsvdata(rawFile.responseText);
-  // displayDataToTable(); 
 }
 
 // Calls getDefaultCSV on Load
