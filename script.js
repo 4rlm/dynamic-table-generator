@@ -17,10 +17,20 @@ var dynamicTableDisplay = createAndSetEl('div', 'dynamic-table-display');
 var footer = document.createElement('footer');
 var footerP = document.createElement('p')
 
+// Display Remote CSV Buttons
 var csv1Btn = createAndSetEl('button', 'csv1-btn');
 var csv2Btn = createAndSetEl('button', 'csv2-btn');
 var csv3Btn = createAndSetEl('button', 'csv3-btn');
 
+// AOS Animation Settings
+headerH1.setAttribute('data-aos', 'fade-up');
+headerP.setAttribute('data-aos', 'fade-right');
+csv1Btn.setAttribute('data-aos', 'fade-left');
+csv2Btn.setAttribute('data-aos-delay', '400');
+csv2Btn.setAttribute('data-aos', 'fade-left');
+csv2Btn.setAttribute('data-aos-delay', '600');
+csv3Btn.setAttribute('data-aos', 'fade-left');
+csv3Btn.setAttribute('data-aos-delay', '800');
 
 // Append Child to Elements
 header.appendChild(headerH1);
@@ -153,6 +163,7 @@ function fetchRemoteCSV(func) {
 // Calls fetchRemoteCSV on Load
 window.onload = fetchRemoteCSV();
 
+// Calls fetchRemoteCSV on Each of 3 Buttons
 csv1Btn.onclick = function() {
   remoteCSVpath = "csv/cars.csv"
   fetchRemoteCSV();
