@@ -1,17 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 html {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 5px;
+  background-color: #DFDBE5;
+  /* background-color: #3753e4; */
+  /* background-image: linear-gradient(107deg, #3753e4 0%, #C850C0 45%); */
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.3' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  position: relative;
+  margin: 10px;
   min-height: 100vh;
   font-family: Comfortaa, sans-serif;
 }
 
-header {
+header, footer {
+  width: 100%;
+  padding: 30px;
+  vertical-align: middle;
+  margin: auto;
   text-align: center;
-  height: 100px;
+  height: 200px;
+  color: #ADD8E6;
+  background-color: #00008b;
+  background-image: linear-gradient(to right, #055ac1, #00008b, #055ac1);
+}
+
+header {
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 5px 5px gray;
+
 }
 
 #upload-display {
@@ -20,6 +40,7 @@ header {
 }
 
 #dynamic-table {
+  margin: auto;
   width: 100%;
   box-shadow: 5px 5px 5px 5px gray;
 }
@@ -32,18 +53,46 @@ header {
   padding: 10px;
 }
 
-#dynamic-table-head {
-  text-transform: capitalize;
-  background-color: dodgerblue;
-  color: whitesmoke;
+#dynamic-table th {
+  color: #ADD8E6;
+  background-color: #020ff8ad;
 }
 
-#dynamic-table tr:nth-child(even) {
-  background-color: rgb(87, 168, 248);
-  color: whitesmoke;
+#dynamic-table tr:nth-child(odd) {
+  background-color: whitesmoke;
+  color: black;
 }
 
 #dynamic-table tr:hover {
-  background-color: rgb(87, 168, 248);
-  color: whitesmoke;
+  color: #ADD8E6;
+  background-color: #020ff8ad;
+}
+
+#dynamic-table th {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 30px;
+}
+
+#csv1-btn, #csv2-btn, #csv3-btn, #fileSelect {
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  box-shadow: 2px 2px 2px 2px gray;
+  color: black;
+  font-weight: bold;
+}
+
+#csv1-btn:hover, #csv2-btn:hover, #csv3-btn:hover, #fileSelect:hover {
+  color: #ADD8E6;
+  background-color: #00008b;
+  transform: translate(2px);
+  transition: all .4s ease;
+  -webkit-transition: all .4s ease;
 }

@@ -1,52 +1,52 @@
-// Important: First, create <div id="dynamic-table-display"></div> on HTML page to dynamically display table and data.
+// Create Elements and Set Attributes Dynamically 
 var dynamicTableDisplay = document.getElementById('dynamic-table-display');
 var dynamicTable = createAndSetEl('table', 'dynamic-table');
 var dynamicTableHead = createAndSetEl('thead', 'dynamic-table-head');
 var dynamicTableBody = createAndSetEl('tbody', 'dynamic-table-body');
-let dataToDisplay = [];
-
 var body = document.body;
 var header = document.createElement('header');
-
-var headerH1 = document.createElement('h1');
-headerH1.setAttribute('id', 'heading');
-
+var headerH1 = createAndSetEl('h1', 'heading');
 var headerP = document.createElement('p');
-
-var uploadDisplay = document.createElement('div');
-uploadDisplay.setAttribute('id', 'upload-display');
-
+var uploadDisplay = createAndSetEl('div', 'upload-display');
 var uploadDisplayLabel = document.createElement('label');
 uploadDisplayLabel.setAttribute('for', 'fileSelect');
-
-var uploadDisplayButton = document.createElement('input');
-uploadDisplayButton.setAttribute('id', 'fileSelect');
-
+var uploadDisplayButton = createAndSetEl('input', 'fileSelect');
 uploadDisplayButton.setAttribute('type', 'file');
 uploadDisplayButton.setAttribute('accept', '.csv');
-
-var dynamicTableDisplay = document.createElement('div');
-dynamicTableDisplay.setAttribute('id', 'dynamic-table-display');
-
-
+var dynamicTableDisplay = createAndSetEl('div', 'dynamic-table-display');
 var footer = document.createElement('footer');
 var footerP = document.createElement('p')
 
+var csv1Btn = createAndSetEl('button', 'csv1-btn');
+var csv2Btn = createAndSetEl('button', 'csv2-btn');
+var csv3Btn = createAndSetEl('button', 'csv3-btn');
 
+
+// Append Child to Elements
 header.appendChild(headerH1);
 header.appendChild(headerP);
 body.appendChild(header);
 uploadDisplay.appendChild(uploadDisplayLabel);
 uploadDisplay.appendChild(uploadDisplayButton);
+uploadDisplay.appendChild(csv1Btn);
+uploadDisplay.appendChild(csv2Btn);
+uploadDisplay.appendChild(csv3Btn);
 body.appendChild(uploadDisplay);
 body.appendChild(dynamicTableDisplay);
 footer.appendChild(footerP);
 body.appendChild(footer);
 
+// Assign Text Content
 headerH1.textContent = 'Dynamic Table Generator';
 uploadDisplayLabel.textContent = 'Choose CSV to Upload & Display';
 headerP.textContent = 'Upload .CSV file to display data and table dynamically.';
 footerP.textContent = 'Testing';
+
+csv1Btn.textContent = 'Cars CSV';
+csv2Btn.textContent = 'People CSV';
+csv3Btn.textContent = 'Sales CSV';
+
+let dataToDisplay = [];
 
 // Helper Method to Create Element and Set Attribute
 function createAndSetEl(docId, setId) {
