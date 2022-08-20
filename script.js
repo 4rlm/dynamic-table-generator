@@ -16,34 +16,17 @@ var dynamicTableBody = document.createElement('tbody');
 dynamicTableBody.setAttribute('id', 'dynamic-table-body');
 
 let dataToDisplay = [];
-let parsedData = [];
-var fruits = [
-  ['type', 'color', 'size', 'sweetness'],
-  ['banana', 'yellow', 'medium', 'medium'],
-  ['tomato', 'red', 'small', 'low'],
-  ['watermelon', 'red', 'large', 'high'],
-];
 
-window.onload = setValueOfDataToDisplay();
-
-function setValueOfDataToDisplay() {
-  clearTable();
-
-  if (parsedData.length) {
-    dataToDisplay = parsedData;
-  }else{
-    dataToDisplay = fruits;
-  };
-  displayDataToTable();
-}
-
+// Appends Elements to Each Other and Top Parent dynamicTableDisplay
 function appendToDynamicTableDisplay() {
   dynamicTable.appendChild(dynamicTableHead);
   dynamicTable.appendChild(dynamicTableBody);
   dynamicTableDisplay.appendChild(dynamicTable);
 }
 
+// Displays CSV Data to Table
 function displayDataToTable() {
+  clearTable();
   var headRow = document.createElement('tr');
   var headings = dataToDisplay[0];
 
@@ -66,22 +49,18 @@ function displayDataToTable() {
   appendToDynamicTableDisplay()
 }
 
+// Clear Table After Each Time Display Data Updates
 function clearTable() {
-  dynamicTableHead.textContent = '';
-  dynamicTableBody.textContent = '';
-  dynamicTableDisplay.textContent = '';
-
-  // while (dynamicTableDisplay.hasChildNodes()) {
-  //   dynamicTableDisplay.removeChild(dynamicTable);
-  //   // dynamicTableDisplay.removeChild(dynamicTableDisplay.firstChild);
-  // }
-
-  // while (dynamicTableDisplay.firstChild) {
-  //   dynamicTableDisplay.removeChild(dynamicTableDisplay.lastChild);
-  // }
+  clearTableHelper(dynamicTableHead);
+  clearTableHelper(dynamicTableBody);
 }
 
-////////////////////////////////////////
+// Helps clearTable()
+function clearTableHelper(element) {
+  while (element.hasChildNodes()) {
+    element.removeChild(element.firstChild);
+  }
+}
 
 // CSV Upload Button Calls getCsv()
 document.getElementById('fileSelect').onclick = function(){
@@ -104,26 +83,35 @@ function getCsv() {
   });
 }
 
-function fetchLocalFile() {
-  const response = fetch('cars.csv')
-   .then(response => response.text())
-   .then(v => Papa.parse(v))
-   .catch(err => console.log(err))
-  response.then(v => console.log(v))
-}
-
 // Parses CSV Data, then Sends to parsedData Array
 function getParsecsvdata(csvdata) {
-    parsedData = [];
+    dataToDisplay = [];
     let newLinebrk = csvdata.split("\n");
     for(let i = 0; i < newLinebrk.length; i++) {
-        parsedData.push(newLinebrk[i].split(","))
+      dataToDisplay.push(newLinebrk[i].split(","))
     }
-    setValueOfDataToDisplay();
+    displayDataToTable();
 }
 
+// Fetches Remote CSV to Use as Default Display
+function getDefaultCSV(func) {
+  var file = "csv/cars.csv";
+  var rawFile = new XMLHttpRequest();
+  var allText;
+  rawFile.open("GET", file, false);
+  rawFile.onreadystatechange = function () {
+      if(rawFile.readyState === 4)
+          if(rawFile.status === 200 || rawFile.status == 0)
+              allText = rawFile.responseText;
+              if(func!=undefined && typeof(func) == "function"){
+                  func(allText);
+               }
+  };
+  rawFile.send();
+  getParsecsvdata(rawFile.responseText);
+  // displayDataToTable(); 
+}
 
-
-
-
+// Calls getDefaultCSV on Load
+window.onload = getDefaultCSV();
 
